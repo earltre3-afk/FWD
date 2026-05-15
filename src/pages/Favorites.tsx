@@ -35,17 +35,18 @@ const Favorites: React.FC = () => {
 
   return (
     <PageShell>
-      <div className="px-4 pb-32 pt-6">
+      <div className="px-4 pb-32 pt-6 lg:px-8 lg:pb-12 lg:pt-10">
         <div className="flex items-center justify-between">
-          <FWDLogo size="md" />
+          <FWDLogo size="md" className="lg:hidden" />
+          <h1 className="hidden text-2xl font-black lg:block">Favorites</h1>
           <button className="relative grid h-10 w-10 place-items-center rounded-full border border-white/10 bg-black/60 text-fuchsia-300 backdrop-blur">
             <Bell className="h-5 w-5" />
             <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-fuchsia-500 shadow-[0_0_8px_rgba(217,70,239,1)]" />
           </button>
         </div>
 
-        <h1 className="mt-6 text-4xl font-black tracking-tight">Your reaction vault</h1>
-        <p className="mt-1 text-sm text-white/60">All your favorite GIFs in one place.</p>
+        <h1 className="mt-6 text-4xl font-black tracking-tight lg:hidden">Your reaction vault</h1>
+        <p className="mt-1 text-sm text-white/60 lg:mt-6 lg:text-base">All your favorite GIFs in one place.</p>
 
         {/* Search */}
         <div className="mt-5 flex items-center gap-3 rounded-full border border-fuchsia-500/40 bg-black/60 px-5 py-3 backdrop-blur-xl">
@@ -78,19 +79,19 @@ const Favorites: React.FC = () => {
 
         {/* Grid */}
         {filtered.length > 0 ? (
-          <div className="mt-5 grid grid-cols-3 gap-3 sm:grid-cols-4 md:grid-cols-5">
+          <div className="mt-5 grid grid-cols-3 gap-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 lg:gap-4">
             {filtered.map(g => (
               <GifCard key={g.id} gif={g} onClick={(x) => nav(`/detail/${x.id}`)} />
             ))}
           </div>
         ) : (
-          <div className="mt-10 rounded-3xl border border-white/10 bg-black/60 p-10 text-center backdrop-blur-xl">
-            <div className="mx-auto grid h-14 w-14 place-items-center rounded-2xl border border-fuchsia-500/40 bg-black/60">
-              <Heart className="h-6 w-6 text-fuchsia-300" />
+          <div className="mt-10 rounded-3xl border border-white/10 bg-black/60 p-10 text-center backdrop-blur-xl lg:p-14">
+            <div className="mx-auto grid h-14 w-14 place-items-center rounded-2xl border border-fuchsia-500/40 bg-black/60 lg:h-16 lg:w-16">
+              <Heart className="h-6 w-6 text-fuchsia-300 lg:h-7 lg:w-7" />
             </div>
-            <p className="mt-3 text-base font-bold">Your reaction vault is empty.</p>
-            <p className="mt-1 text-xs text-white/50">Save GIFs to build your collection.</p>
-            <button onClick={() => nav('/home')} className="mt-5 rounded-full bg-gradient-to-r from-fuchsia-600 to-pink-600 px-6 py-2.5 text-sm font-bold">Discover GIFs</button>
+            <p className="mt-3 text-base font-bold lg:text-lg">Your reaction vault is empty.</p>
+            <p className="mt-1 text-xs text-white/50 lg:text-sm">Save GIFs to build your collection.</p>
+            <button onClick={() => nav('/home')} className="mt-5 rounded-full bg-gradient-to-r from-fuchsia-600 to-pink-600 px-6 py-2.5 text-sm font-bold lg:px-8 lg:py-3 lg:text-base">Discover GIFs</button>
           </div>
         )}
 

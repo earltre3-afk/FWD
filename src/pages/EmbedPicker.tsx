@@ -1,7 +1,8 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { X, Search as SearchIcon, Sparkles, TrendingUp, Smile, Music, Tv, Film } from 'lucide-react';
+import { X, Search as SearchIcon, Sparkles, TrendingUp, Smile, Music, Tv, Film, ExternalLink } from 'lucide-react';
 import FWDLogo from '@/components/FWDLogo';
 import { GIFS, CATEGORIES, GifItem } from '@/data/gifs';
+import { useFWD } from '@/contexts/FWDContext';
 
 type Mode = 'compact' | 'full';
 
@@ -53,6 +54,7 @@ const postClosed = () => {
 };
 
 const EmbedPicker: React.FC = () => {
+  const { allGifs } = useFWD();
   const [mode, setMode] = useState<Mode>('full');
   const [query, setQuery] = useState('');
   const [cat, setCat] = useState('Trending');
@@ -64,15 +66,18 @@ const EmbedPicker: React.FC = () => {
     if (sp.get('mode') === 'full') setMode('full');
   }, []);
 
+  // Use allGifs which includes user-created GIFs from the database
+  const availableGifs = allGifs.length > 0 ? allGifs : GIFS;
+
   const list = useMemo(() => {
-    let l = GIFS;
+    let l = availableGifs;
     if (cat !== 'Trending' && cat !== 'New') l = l.filter(g => g.category === cat);
     if (query.trim()) {
       const q = query.toLowerCase();
       l = l.filter(g => g.title.toLowerCase().includes(q) || g.tags.some(t => t.toLowerCase().includes(q)));
     }
     return l;
-  }, [cat, query]);
+  }, [cat, query, availableGifs]);
 
   const handleSelect = (g: GifItem) => {
     setSelected(g.id);

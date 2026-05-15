@@ -183,21 +183,25 @@ const Create: React.FC = () => {
 
   return (
     <PageShell>
-      <div className="px-4 pb-12 pt-6">
+      <div className="px-4 pb-12 pt-6 lg:px-8 lg:pb-16 lg:pt-10">
         <div className="flex items-center justify-between">
-          <button onClick={() => nav(-1)} className="grid h-10 w-10 place-items-center rounded-2xl border border-white/10 bg-black/60 backdrop-blur">
-            <ArrowLeft className="h-5 w-5" />
+          <button onClick={() => nav(-1)} className="grid h-10 w-10 place-items-center rounded-2xl border border-white/10 bg-black/60 backdrop-blur lg:h-12 lg:w-12">
+            <ArrowLeft className="h-5 w-5 lg:h-6 lg:w-6" />
           </button>
-          <FWDLogo size="md" />
-          <button className="grid h-10 w-10 place-items-center rounded-2xl border border-white/10 bg-black/60 text-fuchsia-300 backdrop-blur" aria-label="Notifications">
-            <Bell className="h-5 w-5" />
+          <FWDLogo size="md" className="lg:hidden" />
+          <h1 className="hidden text-2xl font-black lg:block">Create GIF</h1>
+          <button className="grid h-10 w-10 place-items-center rounded-2xl border border-white/10 bg-black/60 text-fuchsia-300 backdrop-blur lg:h-12 lg:w-12" aria-label="Notifications">
+            <Bell className="h-5 w-5 lg:h-6 lg:w-6" />
           </button>
         </div>
 
-        <div className="mt-4 text-center">
+        <div className="mt-4 text-center lg:hidden">
           <p className="text-xs font-bold uppercase tracking-[0.45em] text-white/60">Create GIF</p>
           <p className="mt-1 text-sm text-white/50">Turn your moment into a loop.</p>
         </div>
+
+        {/* Desktop layout grid */}
+        <div className="lg:mt-8 lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-12">
 
         {/* Upload row */}
         <div className="mt-5 grid grid-cols-2 gap-3">

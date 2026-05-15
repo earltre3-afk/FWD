@@ -21,19 +21,20 @@ const Collections: React.FC = () => {
 
   return (
     <PageShell>
-      <div className="px-4 pb-32 pt-6">
+      <div className="px-4 pb-32 pt-6 lg:px-8 lg:pb-12 lg:pt-10">
         <div className="flex items-center justify-between">
-          <button onClick={() => nav(-1)} className="grid h-10 w-10 place-items-center rounded-2xl border border-white/10 bg-black/60 backdrop-blur">
-            <ArrowLeft className="h-5 w-5" />
+          <button onClick={() => nav(-1)} className="grid h-10 w-10 place-items-center rounded-2xl border border-white/10 bg-black/60 backdrop-blur lg:h-12 lg:w-12">
+            <ArrowLeft className="h-5 w-5 lg:h-6 lg:w-6" />
           </button>
-          <FWDLogo size="md" />
-          <button onClick={() => setCreating(true)} className="grid h-10 w-10 place-items-center rounded-2xl border border-fuchsia-500/40 bg-black/60 text-fuchsia-300 backdrop-blur" aria-label="New collection">
-            <Plus className="h-5 w-5" />
+          <FWDLogo size="md" className="lg:hidden" />
+          <h1 className="hidden text-2xl font-black lg:block">Collections</h1>
+          <button onClick={() => setCreating(true)} className="grid h-10 w-10 place-items-center rounded-2xl border border-fuchsia-500/40 bg-black/60 text-fuchsia-300 backdrop-blur lg:h-12 lg:w-12" aria-label="New collection">
+            <Plus className="h-5 w-5 lg:h-6 lg:w-6" />
           </button>
         </div>
 
-        <h1 className="mt-6 text-3xl font-black tracking-tight">Collections</h1>
-        <p className="mt-1 text-sm text-white/60">Organize your favorite reactions.</p>
+        <h1 className="mt-6 text-3xl font-black tracking-tight lg:hidden">Collections</h1>
+        <p className="mt-1 text-sm text-white/60 lg:mt-6 lg:text-base">Organize your favorite reactions.</p>
 
         {creating && (
           <div className="mt-5 rounded-2xl border border-fuchsia-500/40 bg-black/60 p-4 backdrop-blur">
@@ -52,7 +53,7 @@ const Collections: React.FC = () => {
           </div>
         )}
 
-        <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
+        <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 lg:gap-4">
           {collections.map(c => {
             const gifs = c.gifIds.map(id => GIFS.find(g => g.id === id)).filter(Boolean) as typeof GIFS;
             const isPrivate = c.name.toLowerCase().includes('private');
@@ -60,7 +61,7 @@ const Collections: React.FC = () => {
               <button
                 key={c.id}
                 onClick={() => nav('/favorites')}
-                className="group relative overflow-hidden rounded-3xl border border-white/10 bg-black/60 p-3 text-left backdrop-blur-xl transition hover:border-fuchsia-400/60 hover:-translate-y-1"
+                className="group relative overflow-hidden rounded-3xl border border-white/10 bg-black/60 p-3 text-left backdrop-blur-xl transition hover:border-fuchsia-400/60 hover:-translate-y-1 lg:p-4"
               >
                 <div className="grid grid-cols-2 gap-1.5">
                   {[0, 1, 2, 3].map(i => (

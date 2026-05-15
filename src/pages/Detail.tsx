@@ -38,78 +38,84 @@ const Detail: React.FC = () => {
 
   return (
     <PageShell>
-      <div className="px-4 pb-32 pt-6">
+      <div className="px-4 pb-32 pt-6 lg:px-8 lg:pb-12 lg:pt-10">
         <div className="flex items-center justify-between">
-          <button onClick={() => nav(-1)} className="grid h-10 w-10 place-items-center rounded-2xl border border-white/10 bg-black/60 backdrop-blur">
-            <ArrowLeft className="h-5 w-5" />
+          <button onClick={() => nav(-1)} className="grid h-10 w-10 place-items-center rounded-2xl border border-white/10 bg-black/60 backdrop-blur lg:h-12 lg:w-12">
+            <ArrowLeft className="h-5 w-5 lg:h-6 lg:w-6" />
           </button>
-          <FWDLogo size="md" />
-          <button className="grid h-10 w-10 place-items-center rounded-2xl border border-white/10 bg-black/60 text-fuchsia-300 backdrop-blur" aria-label="Notifications">
-            <Bell className="h-5 w-5" />
-          </button>
-        </div>
-
-        {/* Preview */}
-        <div className="relative mt-6 overflow-hidden rounded-3xl border border-fuchsia-500/30 bg-black/60 shadow-[0_0_40px_rgba(217,70,239,0.35)]">
-          <img src={gif.mediaUrl} alt={gif.altText} className={`block w-full ${playing ? 'animate-[pulse_2s_ease-in-out_infinite]' : ''}`} />
-          <span className="absolute left-3 top-3 rounded-md border border-white/15 bg-black/70 px-2 py-0.5 text-[10px] font-bold tracking-widest">GIF</span>
-          <button onClick={() => setPlaying(p => !p)} className="absolute bottom-3 left-3 grid h-10 w-10 place-items-center rounded-full bg-black/70 backdrop-blur">
-            {playing ? <Pause className="h-5 w-5" /> : <Play className="h-5 w-5" fill="currentColor" />}
-          </button>
-          <button className="absolute bottom-3 right-3 grid h-10 w-10 place-items-center rounded-full bg-black/70 backdrop-blur" aria-label="Fullscreen">
-            <Maximize className="h-5 w-5" />
+          <FWDLogo size="md" className="lg:hidden" />
+          <button className="grid h-10 w-10 place-items-center rounded-2xl border border-white/10 bg-black/60 text-fuchsia-300 backdrop-blur lg:h-12 lg:w-12" aria-label="Notifications">
+            <Bell className="h-5 w-5 lg:h-6 lg:w-6" />
           </button>
         </div>
 
-        {/* Title row */}
-        <div className="mt-5 flex items-start justify-between gap-3">
-          <div>
-            <h1 className="text-3xl font-black uppercase tracking-tight">{gif.title}</h1>
-            <p className="mt-1 inline-flex items-center gap-1.5 text-sm font-semibold text-fuchsia-300">
-              <Flame className="h-4 w-4" /> Trending in {gif.category}
-            </p>
-          </div>
-          <button
-            onClick={() => toggleFavorite(gif.id)}
-            className={`grid h-11 w-11 place-items-center rounded-2xl border transition ${fav ? 'border-fuchsia-400 bg-fuchsia-500/20 text-fuchsia-300 shadow-[0_0_18px_rgba(217,70,239,0.5)]' : 'border-white/10 bg-black/60 text-white/80'}`}
-            aria-label="Favorite"
-          >
-            <Heart className="h-5 w-5" fill={fav ? 'currentColor' : 'none'} />
-          </button>
-        </div>
-
-        {/* Tags */}
-        <div className="mt-4 flex flex-wrap gap-2">
-          {gif.tags.map(t => (
-            <span key={t} className="rounded-full border border-white/10 bg-black/50 px-3 py-1 text-xs text-white/80">#{t}</span>
-          ))}
-        </div>
-
-        {/* Actions */}
-        <div className="mt-5 grid grid-cols-4 gap-2 rounded-2xl border border-fuchsia-500/30 bg-black/60 p-2 backdrop-blur-xl">
-          {[
-            { icon: Heart, label: 'Favorite', onClick: () => toggleFavorite(gif.id), active: fav },
-            { icon: Link2, label: 'Copy Link', onClick: onCopy },
-            { icon: Share2, label: 'Share', onClick: onShare },
-            { icon: Flag, label: 'Report', onClick: () => setReportOpen(true) },
-          ].map((a, i) => (
-            <button
-              key={i}
-              onClick={a.onClick}
-              className={`flex flex-col items-center gap-1 rounded-xl py-3 text-xs font-semibold transition hover:bg-white/5 ${a.active ? 'text-fuchsia-300' : 'text-white/85'}`}
-            >
-              <a.icon className="h-5 w-5" fill={a.active ? 'currentColor' : 'none'} />
-              {a.label}
+        {/* Desktop layout wrapper */}
+        <div className="lg:mt-8 lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-12">
+          {/* Preview */}
+          <div className="relative mt-6 overflow-hidden rounded-3xl border border-fuchsia-500/30 bg-black/60 shadow-[0_0_40px_rgba(217,70,239,0.35)] lg:mt-0">
+            <img src={gif.mediaUrl} alt={gif.altText} className={`block w-full ${playing ? 'animate-[pulse_2s_ease-in-out_infinite]' : ''}`} />
+            <span className="absolute left-3 top-3 rounded-md border border-white/15 bg-black/70 px-2 py-0.5 text-[10px] font-bold tracking-widest lg:text-xs">GIF</span>
+            <button onClick={() => setPlaying(p => !p)} className="absolute bottom-3 left-3 grid h-10 w-10 place-items-center rounded-full bg-black/70 backdrop-blur lg:h-12 lg:w-12">
+              {playing ? <Pause className="h-5 w-5 lg:h-6 lg:w-6" /> : <Play className="h-5 w-5 lg:h-6 lg:w-6" fill="currentColor" />}
             </button>
-          ))}
+            <button className="absolute bottom-3 right-3 grid h-10 w-10 place-items-center rounded-full bg-black/70 backdrop-blur lg:h-12 lg:w-12" aria-label="Fullscreen">
+              <Maximize className="h-5 w-5 lg:h-6 lg:w-6" />
+            </button>
+          </div>
+
+          {/* Right side content on desktop */}
+          <div>
+            {/* Title row */}
+            <div className="mt-5 flex items-start justify-between gap-3 lg:mt-0">
+              <div>
+                <h1 className="text-3xl font-black uppercase tracking-tight lg:text-4xl xl:text-5xl">{gif.title}</h1>
+                <p className="mt-1 inline-flex items-center gap-1.5 text-sm font-semibold text-fuchsia-300 lg:mt-2 lg:text-base">
+                  <Flame className="h-4 w-4 lg:h-5 lg:w-5" /> Trending in {gif.category}
+                </p>
+              </div>
+              <button
+                onClick={() => toggleFavorite(gif.id)}
+                className={`grid h-11 w-11 place-items-center rounded-2xl border transition lg:h-14 lg:w-14 ${fav ? 'border-fuchsia-400 bg-fuchsia-500/20 text-fuchsia-300 shadow-[0_0_18px_rgba(217,70,239,0.5)]' : 'border-white/10 bg-black/60 text-white/80'}`}
+                aria-label="Favorite"
+              >
+                <Heart className="h-5 w-5 lg:h-6 lg:w-6" fill={fav ? 'currentColor' : 'none'} />
+              </button>
+            </div>
+
+            {/* Tags */}
+            <div className="mt-4 flex flex-wrap gap-2 lg:mt-6">
+              {gif.tags.map(t => (
+                <span key={t} className="rounded-full border border-white/10 bg-black/50 px-3 py-1 text-xs text-white/80 lg:px-4 lg:py-1.5 lg:text-sm">#{t}</span>
+              ))}
+            </div>
+
+            {/* Actions */}
+            <div className="mt-5 grid grid-cols-4 gap-2 rounded-2xl border border-fuchsia-500/30 bg-black/60 p-2 backdrop-blur-xl lg:mt-6 lg:p-3">
+              {[
+                { icon: Heart, label: 'Favorite', onClick: () => toggleFavorite(gif.id), active: fav },
+                { icon: Link2, label: 'Copy Link', onClick: onCopy },
+                { icon: Share2, label: 'Share', onClick: onShare },
+                { icon: Flag, label: 'Report', onClick: () => setReportOpen(true) },
+              ].map((a, i) => (
+                <button
+                  key={i}
+                  onClick={a.onClick}
+                  className={`flex flex-col items-center gap-1 rounded-xl py-3 text-xs font-semibold transition hover:bg-white/5 lg:py-4 lg:text-sm ${a.active ? 'text-fuchsia-300' : 'text-white/85'}`}
+                >
+                  <a.icon className="h-5 w-5 lg:h-6 lg:w-6" fill={a.active ? 'currentColor' : 'none'} />
+                  {a.label}
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
 
         {/* Related */}
-        <div className="mt-7 flex items-end justify-between">
-          <h3 className="text-xs font-bold uppercase tracking-[0.3em] text-white/60">More like this</h3>
-          <button onClick={() => nav('/search')} className="text-xs font-semibold text-fuchsia-300">See All ›</button>
+        <div className="mt-7 flex items-end justify-between lg:mt-10">
+          <h3 className="text-xs font-bold uppercase tracking-[0.3em] text-white/60 lg:text-sm">More like this</h3>
+          <button onClick={() => nav('/search')} className="text-xs font-semibold text-fuchsia-300 lg:text-sm">See All ›</button>
         </div>
-        <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
+        <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 lg:gap-4">
           {related.map(g => (
             <GifCard key={g.id} gif={g} onClick={(x) => nav(`/detail/${x.id}`)} />
           ))}
