@@ -1,23 +1,59 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Settings, BadgeCheck, Play, Bookmark, Layers, ChevronDown, MoreHorizontal, Heart } from 'lucide-react';
+import { useNavigate, Link } from 'react-router-dom';
+import { Settings, BadgeCheck, Play, Bookmark, Layers, ChevronDown, MoreHorizontal, Heart, LogIn } from 'lucide-react';
 import PageShell from '@/components/PageShell';
 import FWDLogo from '@/components/FWDLogo';
 import BottomNav from '@/components/BottomNav';
 import { useFWD } from '@/contexts/FWDContext';
+import { useAuth } from '@/contexts/AuthContext';
 import { GIFS } from '@/data/gifs';
 
-const AVATAR = 'https://d64gsuwffb70l.cloudfront.net/6a066e9ff965bde632ec6ca8_1778806627123_e45f14cb.jpg';
+const DEFAULT_AVATAR = 'https://d64gsuwffb70l.cloudfront.net/6a066e9ff965bde632ec6ca8_1778806627123_e45f14cb.jpg';
 
 type Tab = 'Created' | 'Saved' | 'Collections';
 
 const Profile: React.FC = () => {
   const nav = useNavigate();
   const { createdGifs, favorites, allGifs } = useFWD();
+  const { user, profile, loading: authLoading } = useAuth();
   const [tab, setTab] = useState<Tab>('Created');
 
   const savedGifs = allGifs.filter(g => favorites.includes(g.id));
   const shownCreated = createdGifs.length > 0 ? createdGifs : GIFS.slice(0, 6);
+
+  // Show login prompt if not authenticated
+  if (!authLoading && !user) {
+    return (
+      <PageShell>
+        <div className="px-4 pb-32 pt-6">
+          <div className="flex items-center justify-between">
+            <FWDLogo size="md" />
+          </div>
+          <div className="mt-20 flex flex-col items-center justify-center text-center">
+            <div className="w-24 h-24 rounded-full bg-gradient-to-br from-fuchsia-500 to-purple-600 flex items-center justify-center mb-6">
+              <LogIn className="w-10 h-10 text-white" />
+            </div>
+            <h2 className="text-2xl font-bold text-white mb-2">Sign in to FWD</h2>
+            <p className="text-gray-400 mb-6 max-w-xs">Create and save your favorite GIFs, build collections, and more.</p>
+            <div className="flex gap-3">
+              <Link to="/login" className="px-6 py-3 bg-gradient-to-r from-fuchsia-600 to-purple-600 rounded-full font-semibold text-white">
+                Sign In
+              </Link>
+              <Link to="/signup" className="px-6 py-3 border border-fuchsia-500/40 rounded-full font-semibold text-fuchsia-300">
+                Sign Up
+              </Link>
+            </div>
+          </div>
+        </div>
+        <BottomNav />
+      </PageShell>
+    );
+  }
+
+  const displayName = profile?.display_name || 'FWD User';
+  const username = profile?.username || 'user';
+  const bio = profile?.bio || 'Creating vibes. One GIF at a time.';
+  const avatarUrl = profile?.avatar_url || DEFAULT_AVATAR;
 
   const list = tab === 'Created' ? shownCreated : tab === 'Saved' ? savedGifs : [];
 
@@ -26,24 +62,24 @@ const Profile: React.FC = () => {
       <div className="px-4 pb-32 pt-6">
         <div className="flex items-center justify-between">
           <FWDLogo size="md" />
-          <button onClick={() => alert('Settings coming soon')} className="grid h-10 w-10 place-items-center rounded-2xl border border-fuchsia-500/40 bg-black/60 text-fuchsia-300 backdrop-blur" aria-label="Settings">
+          <Link to="/settings" className="grid h-10 w-10 place-items-center rounded-2xl border border-fuchsia-500/40 bg-black/60 text-fuchsia-300 backdrop-blur" aria-label="Settings">
             <Settings className="h-5 w-5" />
-          </button>
+          </Link>
         </div>
 
         {/* Profile card */}
         <div className="mt-6 rounded-3xl border border-fuchsia-500/30 bg-black/60 p-4 backdrop-blur-xl shadow-[0_0_30px_rgba(217,70,239,0.25)]">
           <div className="flex gap-4">
             <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-full border-2 border-fuchsia-500/70 shadow-[0_0_22px_rgba(217,70,239,0.6)]">
-              <img src={AVATAR} alt="Avatar" className="h-full w-full object-cover" />
+              <img src={avatarUrl} alt="Avatar" className="h-full w-full object-cover" />
             </div>
             <div className="min-w-0 flex-1">
               <div className="flex items-center gap-1.5">
-                <h2 className="truncate text-xl font-black">NeonDreamer</h2>
-                <BadgeCheck className="h-4 w-4 text-fuchsia-400" fill="currentColor" />
+                <h2 className="truncate text-xl font-black">{displayName}</h2>
+                {profile && <BadgeCheck className="h-4 w-4 text-fuchsia-400" fill="currentColor" />}
               </div>
-              <p className="text-xs text-white/50">@neondreamer</p>
-              <p className="mt-1 text-xs text-white/70">Creating vibes. One GIF at a time.</p>
+              <p className="text-xs text-white/50">@{username}</p>
+              <p className="mt-1 text-xs text-white/70">{bio}</p>
               <div className="mt-3 flex gap-4">
                 <div>
                   <p className="text-base font-black">{shownCreated.length}</p>

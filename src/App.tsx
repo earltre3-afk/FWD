@@ -5,7 +5,12 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@/components/theme-provider";
 import { FWDProvider } from "@/contexts/FWDContext";
+import { AuthProvider } from "@/contexts/AuthContext";
 import Index from "./pages/Index";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import CreateProfile from "./pages/CreateProfile";
+import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 import Home from "./pages/Home";
 import SearchPage from "./pages/SearchPage";
@@ -24,12 +29,17 @@ const App = () => (
   <ThemeProvider defaultTheme="dark">
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
+        <AuthProvider>
         <FWDProvider>
           <Toaster />
           <Sonner />
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Index />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
+              <Route path="/create-profile" element={<CreateProfile />} />
+              <Route path="/settings" element={<Settings />} />
               <Route path="/home" element={<Home />} />
               <Route path="/search" element={<SearchPage />} />
               <Route path="/detail/:id" element={<Detail />} />
@@ -44,6 +54,7 @@ const App = () => (
             </Routes>
           </BrowserRouter>
         </FWDProvider>
+        </AuthProvider>
       </TooltipProvider>
     </QueryClientProvider>
   </ThemeProvider>
