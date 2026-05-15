@@ -1,0 +1,17 @@
+{
+  "name": "FWD",
+  "short_name": "FWD",
+  "description": "Futuristic GIFs, reactions, memes, and short loops.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#05070D",
+  "theme_color": "#05070D",
+  "icons": [
+    {
+      "src": "/fwd.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
