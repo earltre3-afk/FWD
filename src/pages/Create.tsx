@@ -200,9 +200,6 @@ const Create: React.FC = () => {
           <p className="mt-1 text-sm text-white/50">Turn your moment into a loop.</p>
         </div>
 
-        {/* Desktop layout grid */}
-        <div className="lg:mt-8 lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-12">
-
         {/* Upload row */}
         <div className="mt-5 grid grid-cols-2 gap-3">
           <button onClick={() => fileRef.current?.click()} className="flex items-center justify-center gap-2 rounded-2xl border border-fuchsia-500/30 bg-black/60 py-3 text-sm font-semibold hover:border-fuchsia-400">
