@@ -22,15 +22,15 @@ const AppLayout: React.FC = () => {
   const nav = useNavigate();
 
   return (
-    <PageShell>
-      <div className="px-5 pt-10 pb-24">
+    <PageShell hideSidebar>
+      <div className="px-5 pt-10 pb-24 lg:px-8 lg:py-16 xl:px-16">
         {/* Hero */}
-        <div className="flex flex-col items-center text-center">
+        <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
           <FWDLogo size="xl" />
-          <h1 className="mt-8 bg-gradient-to-r from-fuchsia-300 via-pink-300 to-cyan-300 bg-clip-text text-4xl font-black tracking-tight text-transparent sm:text-5xl md:text-6xl">
+          <h1 className="mt-8 bg-gradient-to-r from-fuchsia-300 via-pink-300 to-cyan-300 bg-clip-text text-4xl font-black tracking-tight text-transparent sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl">
             Express. Connect. Forward.
           </h1>
-          <p className="mt-4 max-w-md text-base text-white/70 sm:text-lg">
+          <p className="mt-4 max-w-md text-base text-white/70 sm:text-lg lg:max-w-xl lg:text-xl">
             The future of GIFs. Create it. Clip it. Forward it.
           </p>
 
@@ -61,20 +61,20 @@ const AppLayout: React.FC = () => {
         </div>
 
         {/* Feature cards */}
-        <div className="mt-14">
-          <h2 className="mb-5 text-xs font-bold uppercase tracking-[0.3em] text-white/50">Everything FWD</h2>
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5">
+        <div className="mt-14 lg:mt-20">
+          <h2 className="mb-5 text-xs font-bold uppercase tracking-[0.3em] text-white/50 lg:text-sm">Everything FWD</h2>
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5 lg:gap-4">
             {features.map(f => (
               <div
                 key={f.title}
-                className="relative overflow-hidden rounded-2xl border border-white/10 bg-black/60 p-4 backdrop-blur-xl transition hover:border-fuchsia-400/60 hover:-translate-y-1"
+                className="relative overflow-hidden rounded-2xl border border-white/10 bg-black/60 p-4 backdrop-blur-xl transition hover:border-fuchsia-400/60 hover:-translate-y-1 lg:p-6"
               >
                 <div className="absolute -inset-px -z-10 bg-gradient-to-br from-fuchsia-500/30 to-purple-500/5 opacity-60" />
-                <div className="mb-3 grid h-10 w-10 place-items-center rounded-xl border border-fuchsia-500/40 bg-black/60 text-fuchsia-300 shadow-[0_0_18px_rgba(217,70,239,0.4)]">
-                  <f.icon className="h-5 w-5" />
+                <div className="mb-3 grid h-10 w-10 place-items-center rounded-xl border border-fuchsia-500/40 bg-black/60 text-fuchsia-300 shadow-[0_0_18px_rgba(217,70,239,0.4)] lg:h-12 lg:w-12">
+                  <f.icon className="h-5 w-5 lg:h-6 lg:w-6" />
                 </div>
-                <p className="text-sm font-bold text-white">{f.title}</p>
-                <p className="mt-1 text-xs text-white/60">{f.desc}</p>
+                <p className="text-sm font-bold text-white lg:text-base">{f.title}</p>
+                <p className="mt-1 text-xs text-white/60 lg:text-sm">{f.desc}</p>
               </div>
             ))}
           </div>
@@ -101,15 +101,15 @@ const AppLayout: React.FC = () => {
         </div>
 
         {/* Trending GIFs */}
-        <div className="mt-12">
+        <div className="mt-12 lg:mt-16">
           <div className="mb-4 flex items-end justify-between">
-            <h2 className="text-2xl font-black tracking-tight">Trending now</h2>
-            <button onClick={() => nav('/home')} className="text-sm font-semibold text-fuchsia-300 hover:text-fuchsia-200">
+            <h2 className="text-2xl font-black tracking-tight lg:text-3xl">Trending now</h2>
+            <button onClick={() => nav('/home')} className="text-sm font-semibold text-fuchsia-300 hover:text-fuchsia-200 lg:text-base">
               See all →
             </button>
           </div>
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
-            {GIFS.slice(0, 8).map(g => (
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 lg:gap-4">
+            {GIFS.slice(0, 12).map(g => (
               <button
                 key={g.id}
                 onClick={() => nav(`/detail/${g.id}`)}
@@ -117,8 +117,8 @@ const AppLayout: React.FC = () => {
               >
                 <img src={g.thumbnailUrl} alt={g.altText} className="absolute inset-0 h-full w-full object-cover transition group-hover:scale-105" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/0 to-black/30" />
-                <span className="absolute left-2 top-2 rounded-md border border-white/15 bg-black/60 px-2 py-0.5 text-[10px] font-bold tracking-widest">GIF</span>
-                <span className="absolute bottom-2 left-2 text-xs font-bold drop-shadow">{g.title}</span>
+                <span className="absolute left-2 top-2 rounded-md border border-white/15 bg-black/60 px-2 py-0.5 text-[10px] font-bold tracking-widest lg:text-xs">GIF</span>
+                <span className="absolute bottom-2 left-2 text-xs font-bold drop-shadow lg:text-sm">{g.title}</span>
               </button>
             ))}
           </div>

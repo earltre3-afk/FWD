@@ -16,7 +16,7 @@ const BottomNav: React.FC = () => {
   const { pathname } = useLocation();
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-40 px-3 pb-3 pt-2">
+    <nav className="fixed bottom-0 left-0 right-0 z-40 px-3 pb-3 pt-2 lg:hidden">
       <div className="mx-auto flex max-w-md items-center justify-around rounded-3xl border border-white/10 bg-black/70 px-2 py-2 backdrop-blur-2xl shadow-[0_0_30px_rgba(168,85,247,0.25)]">
         {items.map(item => {
           const active = pathname === item.path;

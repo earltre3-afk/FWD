@@ -34,8 +34,11 @@ const SearchPage: React.FC = () => {
 
   return (
     <PageShell>
-      <div className="px-4 pb-32 pt-6">
-        <div className="flex items-center justify-center"><FWDLogo size="md" /></div>
+      <div className="px-4 pb-32 pt-6 lg:px-8 lg:pb-12 lg:pt-10">
+        <div className="flex items-center justify-center lg:justify-start">
+          <FWDLogo size="md" className="lg:hidden" />
+          <h1 className="hidden text-2xl font-black lg:block">Search</h1>
+        </div>
 
         <div className="mt-6 flex items-center gap-3 rounded-full border border-fuchsia-500/40 bg-black/60 px-5 py-3 backdrop-blur-xl shadow-[0_0_30px_rgba(168,85,247,0.3)]">
           <SearchIcon className="h-5 w-5 text-white/60" />
@@ -112,24 +115,24 @@ const SearchPage: React.FC = () => {
 
         {/* Results */}
         <div className="mt-6 flex items-end justify-between">
-          <h3 className="text-xs font-bold uppercase tracking-[0.3em] text-white/60">Search results</h3>
-          <span className="text-xs font-semibold text-fuchsia-300">{results.length} Results</span>
+          <h3 className="text-xs font-bold uppercase tracking-[0.3em] text-white/60 lg:text-sm">Search results</h3>
+          <span className="text-xs font-semibold text-fuchsia-300 lg:text-sm">{results.length} Results</span>
         </div>
 
         {results.length > 0 ? (
-          <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
+          <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 lg:gap-4">
             {results.map(g => (
               <GifCard key={g.id} gif={g} onClick={(gif) => nav(`/detail/${gif.id}`)} showShare aspect="tall" />
             ))}
           </div>
         ) : (
-          <div className="mt-8 rounded-3xl border border-white/10 bg-black/60 p-10 text-center backdrop-blur-xl">
-            <div className="mx-auto mb-3 grid h-14 w-14 place-items-center rounded-2xl border border-fuchsia-500/40 bg-black/60">
-              <SearchIcon className="h-6 w-6 text-fuchsia-300" />
+          <div className="mt-8 rounded-3xl border border-white/10 bg-black/60 p-10 text-center backdrop-blur-xl lg:p-14">
+            <div className="mx-auto mb-3 grid h-14 w-14 place-items-center rounded-2xl border border-fuchsia-500/40 bg-black/60 lg:h-16 lg:w-16">
+              <SearchIcon className="h-6 w-6 text-fuchsia-300 lg:h-7 lg:w-7" />
             </div>
-            <p className="text-base font-bold">No reaction found yet.</p>
-            <p className="mt-1 text-xs text-white/50">Try another keyword, or make your own.</p>
-            <button onClick={() => nav('/create')} className="mt-5 rounded-full bg-gradient-to-r from-fuchsia-600 to-pink-600 px-6 py-2.5 text-sm font-bold shadow-[0_0_24px_rgba(217,70,239,0.55)]">
+            <p className="text-base font-bold lg:text-lg">No reaction found yet.</p>
+            <p className="mt-1 text-xs text-white/50 lg:text-sm">Try another keyword, or make your own.</p>
+            <button onClick={() => nav('/create')} className="mt-5 rounded-full bg-gradient-to-r from-fuchsia-600 to-pink-600 px-6 py-2.5 text-sm font-bold shadow-[0_0_24px_rgba(217,70,239,0.55)] lg:px-8 lg:py-3 lg:text-base">
               Create one
             </button>
           </div>
