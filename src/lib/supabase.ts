@@ -1,9 +1,9 @@
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import type { GifItem } from '@/data/gifs';
 
-// Read env (Vite) — fall back gracefully when not configured
-const SUPABASE_URL = (import.meta as any).env?.VITE_SUPABASE_URL as string | undefined;
-const SUPABASE_ANON = (import.meta as any).env?.VITE_SUPABASE_ANON_KEY as string | undefined;
+// Read env (Vite) — support both VITE_ prefixed and non-prefixed env vars
+const SUPABASE_URL = ((import.meta as any).env?.VITE_SUPABASE_URL || (import.meta as any).env?.SUPABASE_URL) as string | undefined;
+const SUPABASE_ANON = ((import.meta as any).env?.VITE_SUPABASE_ANON_KEY || (import.meta as any).env?.SUPABASE_ANON_KEY) as string | undefined;
 
 export const isSupabaseEnabled = Boolean(SUPABASE_URL && SUPABASE_ANON);
 
